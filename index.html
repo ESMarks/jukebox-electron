@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'"> 
+  <title>Jukebox Controls</title>
+  <!-- Font Awesome for icons -->
+  <!-- <link rel="stylesheet" href="font-awesome.css"> -->
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Global Controls Bar -->
+  <div id="global-controls">
+    <button id="global-turn-on">System On</button>
+    <button id="global-turn-off">System Off</button>
+    <button id="global-cancel">Cancel All</button>
+    <p>Service: <span id="service-status">???</span></p>
+    <!-- Exit Button -->
+    <button id="exit-button" class="exit-button">Exit</button>
+  </div>
+  
+  <!-- 2x2 Grid of Jukebox Panels -->
+  <div id="jukebox-grid">
+    <div class="jukebox-panel" id="MM1">
+      <div class="panel-label">
+        <img src="assets/MM1-icon.png" class="jukebox-icon">
+        <p>Status: <span class="status">Unknown</span></p>
+      </div>
+      <div class="panel-controls">
+        <p><button class="turn-on">Turn On</button></p>
+        <p><button class="turn-off">Turn Off</button></p>
+        <p><button class="cancel">Cancel</button></p>
+      </div>
+    </div>
+    <div class="jukebox-panel" id="MM5">
+      <div class="panel-label">
+        <h2>MM5</h2>
+        <p>Status: <span class="status">Unknown</span></p>
+      </div>
+      <div class="panel-controls">
+        <p><button class="turn-on">Turn On</button></p>
+        <p><button class="turn-off">Turn Off</button></p>
+        <p><button class="cancel">Cancel</button></p>
+      </div>
+    </div>
+    <div class="jukebox-panel" id="MM6">
+      <div class="panel-label">
+        <h2>MM6</h2>
+        <p>Status: <span class="status">Unknown</span></p>
+      </div>
+      <div class="panel-controls">
+        <p><button class="turn-on">Turn On</button></p>
+        <p><button class="turn-off">Turn Off</button></p>
+        <p><button class="cancel">Cancel</button></p>
+      </div>
+    </div>
+    <div class="jukebox-panel" id="TI2">
+      <div class="panel-label">
+        <h2>TI2</h2>
+        <p>Status: <span class="status">Unknown</span></p>
+      </div>
+      <div class="panel-controls">
+        <p><button class="turn-on">Turn On</button></p>
+        <p><button class="turn-off">Turn Off</button></p>
+        <p><button class="cancel">Cancel</button></p>
+      </div>
+    </div>
+  </div>
+  
+  <script src="renderer.js"></script>
+</body>
+</html>
