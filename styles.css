@@ -42,19 +42,45 @@ body {
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   gap: 10px;
-  padding: 10px;
+  padding: 0px;
   box-sizing: border-box; /* Ensure padding is included in height */
 }
 
-.jukebox-panel {
+/* .jukebox-panel {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
   border: 1px solid #00e6ff;
-  padding: 15px;
+  padding: 8px;
   text-align: center;
   font-size: 0.9em;
   box-sizing: border-box; /* Include padding in panel size */
+/*} */
+
+.jukebox-panel {
+  display: flex;
+  flex-direction: row;        /* children (.panel-label and .panel-controls) go side-by-side */
+  justify-content: center;    /* center the two columns horizontally within the panel */
+  align-items: center;        /* center them vertically in the panel */
+  
+  border: 1px solid #00e6ff;
+  padding: 8px;               /* keep the slimmer padding */
+  text-align: center;
+  font-size: 0.9em;
+  box-sizing: border-box;
+  height: 100%;               /* ensure it fills its grid cell */
+}
+
+/* Style each column so its own children (icon/status in one, buttons in the other) stack vertically */
+.panel-label,
+.panel-controls {
+  display: flex;
+  flex-direction: column;     /* stack children inside each column */
+  align-items: center;        /* center them horizontally inside that column */
+}
+
+.panel-label {
+  margin-right: 60px;
 }
 
 .jukebox-panel button {
@@ -66,17 +92,20 @@ body {
   cursor: pointer;
 }
 
-.panel-controls p{
-  margin: 6px 6px;
+.panel-controls p {
+  /* margin: 6px 6px; */
+  margin: 4px 0;
 }
 
 .jukebox-icon {
-  display: block;           /* so margin: auto centers it */
-  margin: 0 auto 0px;      /* center horizontally, 10px bottom spacing */
+  /* display: block;           so margin: auto centers it */
+  margin: 0px auto 20px;      /* center horizontally, 10px bottom spacing */
   width: 80px;              /* or whatever size you need */
   /* height: 64px;             keep square icons; omit if you only set width */
   object-fit: contain;      /* preserve aspect ratio */
 }
 
-
+.panel-label p {
+  margin: 0;
+}
 
