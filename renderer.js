@@ -8,7 +8,9 @@ function sendCommand(command, id = "global") {
   const client = net.createConnection({ path: '/tmp/jukebox_commands.sock' }, () => {
     // Send a JSON payload if you need to include the target
     //const payload = JSON.stringify({ jukebox: id, command: command });
-    if (id === "global") {
+    if (command === "status") {
+      client.write('status');
+    } else if (id === "global") {
       client.write(`command:${command}`);
     } else {
       client.write(`command:${id}:${command}`);
@@ -24,6 +26,13 @@ function sendCommand(command, id = "global") {
     console.error('Socket Error:', err);
   });
 }
+
+function requestStatuses() {
+  const client = net.createConnection({ path: '/tmp/jukebox_commands.sock' }, () => {
+    client.write('status');
+    client.end();
+  })
+};
 
 // Global controls listeners
 document.getElementById('global-turn-on').addEventListener('click', () => {
@@ -72,3 +81,8 @@ ipcRenderer.on('service-status', (_e, status) => {
 document.getElementById('exit-button').addEventListener('click', () => {
   ipcRenderer.send('quit-app');
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  requestStatuses();
+  console.log("Getting initial statuses.");
+})

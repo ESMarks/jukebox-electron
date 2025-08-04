@@ -16,7 +16,7 @@ function createWindow () {
   });
 
   win.loadFile('index.html');
-  // Optional: win.webContents.openDevTools(); // Uncomment for debugging
+  //win.webContents.openDevTools(); // Uncomment for debugging
 }
 
 // --- Update socket: push real‑time status to renderer ---
