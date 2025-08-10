@@ -10,8 +10,8 @@ function sendCommand(command, id = "global") {
     //const payload = JSON.stringify({ jukebox: id, command: command });
     if (command === "status") {
       client.write('status');
-    } else if (id === "global") {
-      client.write(`command:${command}`);
+    // } else if (id === "global") {
+    //   client.write(`command:${command}`);
     } else {
       client.write(`command:${id}:${command}`);
     }
@@ -49,13 +49,13 @@ document.getElementById('global-cancel').addEventListener('click', () => {
 const panels = document.querySelectorAll('.jukebox-panel');
 panels.forEach(panel => {
   panel.querySelector('.turn-on').addEventListener('click', () => {
-    sendCommand("turn_on", panel.id);
+    sendCommand("ON", panel.id);
   });
   panel.querySelector('.turn-off').addEventListener('click', () => {
-    sendCommand("turn_off", panel.id);
+    sendCommand("OFF", panel.id);
   });
   panel.querySelector('.cancel').addEventListener('click', () => {
-    sendCommand("cancel", panel.id);
+    sendCommand("CANCEL", panel.id);
   });
 });
 
