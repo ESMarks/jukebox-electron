@@ -37,9 +37,11 @@ function requestStatuses() {
 // Global controls listeners
 document.getElementById('global-turn-on').addEventListener('click', () => {
   sendCommand("ON");
+  ipcRenderer.send('system-on');  // Tell main to stop swayidle (screen blanking)
 });
 document.getElementById('global-turn-off').addEventListener('click', () => {
   sendCommand("OFF");
+  ipcRenderer.send('system-off'); // Tell main to start swayidle (screen blanking)
 });
 document.getElementById('global-cancel').addEventListener('click', () => {
   sendCommand("cancel_all");

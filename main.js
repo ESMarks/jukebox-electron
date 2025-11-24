@@ -1,8 +1,9 @@
 // main.js
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, powerSaveBlocker } = require('electron');
 const { exec } = require('child_process');
 const net = require('net');
 let win;
+let swayidleRunning = false;
 
 function createWindow () {
   win = new BrowserWindow({
@@ -17,6 +18,31 @@ function createWindow () {
 
   win.loadFile('index.html');
   //win.webContents.openDevTools(); // Uncomment for debugging
+}
+
+function runCmd(cmd) {
+  exec(cmd, (err, stdout, stderr) => {
+    if (err) {
+      console.error(`Commad failed: ${cmd}`, err.message);
+      return;
+    }
+    if (stdout.trim()) console.log(stdout.trim());
+    if (stderr.trim()) console.error(stderr.trim());
+  })
+}
+
+//Stop all swayidle instances
+function stopSwayidle() {
+  console.log('Stopping swayidle');
+  runCmd('pkill swayidle');
+  swayidleRunning = false;
+}
+
+//Start swayidle to blank display after timeout
+function startSwayidle() {
+  console.log('Starting swayidle');
+  runCmd(`swayidle -w timeout 300 \'wlopm --off \\*\' resume \'wlopm --on \\*\' &`);
+  swayidleRunning = true;
 }
 
 // --- Update socket: push real‑time status to renderer ---
@@ -54,9 +80,19 @@ ipcMain.on('send-command', (_e, payload) => {
   cmdClient.on('error', err => console.error('Command socket error:', err));
 });
 
+ipcMain.on('system-on', () => {
+  stopSwayidle();
+});
+
+ipcMain.on('system-off', () => {
+  startSwayidle();
+});
 
 app.whenReady().then(() => {
   createWindow();
+
+  //Takeover swayidle control
+  stopSwayidle();
 
   //Poll every 5 seconds
   setInterval(() => {
@@ -74,5 +110,6 @@ ipcMain.on('quit-app', () => {
 });
 
 app.on('window-all-closed', () => {
+  startSwayidle();
   if (process.platform !== 'darwin') app.quit();
 });
